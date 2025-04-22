@@ -1,4 +1,3 @@
-// AddMovieForm.js
 import React, { useState } from "react";
 
 function AddMovieForm({ onAddMovie }) {
@@ -9,6 +8,7 @@ function AddMovieForm({ onAddMovie }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newMovie = {
       title,
       description,

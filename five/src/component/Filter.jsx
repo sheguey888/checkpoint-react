@@ -34,11 +34,12 @@ function Filter({
       <label htmlFor="ratingRange" style={{ marginRight: "10px" }}>
         Filter by rate <span>[{filterRate}]</span>
       </label>
+      {/* Inverse min and max values */}
       <input
         id="ratingRange"
         type="range"
         min="0"
-        max="10"
+        max="11"
         value={filterRate}
         onChange={(e) => onFilterRateChange(e.target.value)}
         style={{ marginTop: "-10px" }}

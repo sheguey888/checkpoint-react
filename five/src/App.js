@@ -1,13 +1,14 @@
-// App.js
 import React, { useState } from "react";
-import MovieList from "./components/MovieList";
-import Filter from "./components/Filter";
-import moviesData from "./components/movies";
-import AddMovieForm from "./components/AddMovies";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import MovieList from "./component/MovieList";
+import Filter from "./component/Filter";
+import moviesData from "./component/movies";
+import AddMovieForm from "./component/AddMovies";
+import MovieTrailer from "./component/MovieTrailer";
 
 const App = () => {
   const [movies, setMovies] = useState(moviesData);
-
   const [filterTitle, setFilterTitle] = useState("");
   const [filterRate, setFilterRate] = useState("");
 
@@ -31,25 +32,37 @@ const App = () => {
   });
 
   return (
-    <div className="App">
-      <h1
-        style={{
-          background: "#ddd",
-          padding: "20px 50px",
-          margin: "-0px",
-        }}
-      >
-        My Movie List
-      </h1>
-      <AddMovieForm onAddMovie={handleAddMovie} />
-      <Filter
-        filterTitle={filterTitle}
-        filterRate={filterRate}
-        onFilterTitleChange={handleFilterTitleChange}
-        onFilterRateChange={handleFilterRateChange}
-      />
-      <MovieList movies={filteredMovies} />
-    </div>
+    <Router>
+      <div>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                <h1
+                  style={{
+                    background: "#ddd",
+                    padding: "20px 50px",
+                    margin: "-0px",
+                  }}
+                >
+                  My Movie List
+                </h1>
+                <AddMovieForm onAddMovie={handleAddMovie} />
+                <Filter
+                  filterTitle={filterTitle}
+                  filterRate={filterRate}
+                  onFilterTitleChange={handleFilterTitleChange}
+                  onFilterRateChange={handleFilterRateChange}
+                />
+                <MovieList movies={filteredMovies} />
+              </div>
+            }
+          />
+          <Route path="/movie/:movieId" element={<MovieTrailer />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

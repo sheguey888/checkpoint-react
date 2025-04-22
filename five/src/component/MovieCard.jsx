@@ -1,7 +1,18 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function MovieCard({ title, description, posterURL, rating }) {
+function MovieCard({ id, title, description, posterURL, rating }) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const ratingColor = (rating) => {
+    if (rating >= 8) {
+      return "green";
+    } else if (rating >= 5) {
+      return "orange";
+    } else {
+      return "red";
+    }
+  };
 
   return (
     <div
@@ -14,7 +25,6 @@ function MovieCard({ title, description, posterURL, rating }) {
         margin: "1rem 20px",
         width: "280px",
       }}
-      //  hover effect
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -29,7 +39,7 @@ function MovieCard({ title, description, posterURL, rating }) {
         <h2>{title}</h2>
         <p
           style={{
-            backgroundColor: "#f9bc60",
+            backgroundColor: ratingColor(rating),
             height: "25px",
             borderRadius: "3px",
             fontWeight: "bold",
@@ -51,12 +61,22 @@ function MovieCard({ title, description, posterURL, rating }) {
           left: 0,
           bottom: 0,
           right: 0,
-          visibility: isHovered ? "visible" : "hidden", // visibility
+          visibility: isHovered ? "visible" : "hidden",
           transition: "visibility 0.3s ease-in",
         }}
       >
         <h3>Overview</h3>
         <p>{description}</p>
+        {/* Utilisez le composant Link pour rediriger vers la page de la bande-annonce */}
+        <Link
+          to={`/movie/${id}`} // Utilisez l'ID du film pour construire le chemin de l'URL
+          style={{
+            cursor: "pointer",
+            textDecoration: "none",
+          }}
+        >
+          Watch Trailer
+        </Link>
       </div>
     </div>
   );
